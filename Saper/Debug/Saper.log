@@ -1,0 +1,11 @@
+﻿  Saper.cpp
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(58,25): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(58,62): warning C4018: ">": niezgodność typu ze znakiem/bez znaku
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(88,23): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(90,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(113,26): warning C4101: "lost": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(113,20): warning C4101: "win": lokalna zmienna, do której nie istnieje odwołanie
+C:\Users\wikak\Desktop\Adrian Studia\Saper\Saper\Saper.cpp(113,12): warning C4101: "reset": lokalna zmienna, do której nie istnieje odwołanie
+  Texts.cpp
+  Generowanie kodu...
+  Saper.vcxproj -> C:\Users\wikak\Desktop\Adrian Studia\Saper\Debug\Saper.exe
