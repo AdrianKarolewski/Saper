@@ -5,7 +5,7 @@
 
 #include <Windows.h>
 #include "Box.h"
-//dfse
+//dfse z kompa
 class Map
 {
 
