@@ -7,19 +7,21 @@
 #include "Box.h"
 #include "Map.h"
 #include "Texts.h"
-constexpr unsigned int window_w = 1400, window_h = 1000;
+
+int window_w = GetSystemMetrics(SM_CXSCREEN), window_h = GetSystemMetrics(SM_CYSCREEN);
+
 bool menu(sf::Event event,unsigned int * g_m_w, unsigned int* g_m_h, unsigned int* m_o_m)
 {
     bool choose_lv = 0;
     if (event.mouseButton.button == sf::Mouse::Left)
     {
-        if ((event.mouseButton.x > 550) && (event.mouseButton.x < 850))
+        if ((event.mouseButton.x > window_w/2 - 150.f) && (event.mouseButton.x < window_w/2 + 150.f))
         {
             if ((event.mouseButton.y > 300) && (event.mouseButton.y < 400))
             {
                 choose_lv = 1;
                 *g_m_w = 10;
-                *g_m_h = 15;
+                *g_m_h = 16;
                 *m_o_m = 30;
             }
             else if ((event.mouseButton.y > 450) && (event.mouseButton.y < 550))
@@ -42,20 +44,20 @@ bool menu(sf::Event event,unsigned int * g_m_w, unsigned int* g_m_h, unsigned in
 }
 bool game(sf::Event event,Map * g_map_f, sf::RenderWindow *Saper_game)
 {
-    int *click_x = new int, *click_y = new int;
+    long long *click_x = new long long, *click_y = new long long;
     bool choose_lv = 1;
 
     g_map_f->draw_boxes(*Saper_game, g_map_f);
     if (event.type == sf::Event::MouseButtonPressed)
     {
-        *click_x = (event.mouseButton.x - 30) / 30;
-        *click_y = (event.mouseButton.y - 30) / 30;
-
+        *click_x = ((event.mouseButton.x  + static_cast<long long>(30 * g_map_f->map_w /2) - (window_w / 2))) / 30;
+        *click_y = ((event.mouseButton.y  + static_cast<long long>(30 * g_map_f->map_h /2) - (window_h / 2)))/ 30;
+        
         if ((event.mouseButton.x > 1235) && (event.mouseButton.x < 1385) && (event.mouseButton.y > 35) && (event.mouseButton.y < 75))
         {
             choose_lv = 0;
         }
-        if (!((*click_x > (g_map_f->map_w - 1)) || (*click_y > (g_map_f->map_h - 1))))
+        if (!((*click_x > (g_map_f->map_w - 1)) || (*click_y > (g_map_f->map_h - 1))) && (!(*click_x < 0  || *click_y < 0)))
         {
             if (event.mouseButton.button == sf::Mouse::Right)
             {
@@ -106,7 +108,8 @@ int main()
     sf::Event event;
 
     int resultgame = 0;
-
+    
+    
     Texts* lv_ea = new Texts(font, "Lv_easy", { 0, 0, 255 }, 50, { 600.f,315.f }, { 300.f,100.f }, { 700.f,350.f });
     Texts* lv_me = new Texts(font, "Lv_medium", {0, 0, 255}, 50, { 570.f,465.f }, { 300.f,100.f }, { 700.f,500.f });
     Texts* lv_ha = new Texts(font, "Lv_hard", { 0, 0, 255 }, 50, { 600.f,615.f }, { 300.f,100.f }, { 700.f,650.f });
@@ -117,16 +120,16 @@ int main()
     
     Map* g_map = nullptr;
     // schownanie konsoli
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    
 
     if (!font.loadFromFile("Arial.ttf"))
     {
-        std::cout << "BLLSDF";
+        std::cout << "Blad czcionki";
     }
     //petla gry
     while (Saper.isOpen())
     {
-        Saper.clear(sf::Color::White);
+        Saper.clear(sf::Color (20,88,60));
         
         while (Saper.pollEvent(event))
         {

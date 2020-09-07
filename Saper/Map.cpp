@@ -308,20 +308,20 @@ Map* Map::append_mines_add_val(Map * map1)
 }
 Map* Map::draw_boxes(sf::RenderWindow &window_sap, Map* map1)
 {
-	sf::Vector2f vector_position{ 40.f, 40.f };
+	int window_w = GetSystemMetrics(SM_CXSCREEN), window_h = GetSystemMetrics(SM_CYSCREEN);
+	sf::Vector2f vector_position{ (window_w/2) - (t_boxes[0][0].size_box.x * map_w)/2, (window_h / 2) - (t_boxes[0][0].size_box.y * map_h)/2 };
 	
 	for (unsigned int i = 0; i < map_h; i++)
 	{
 		for (unsigned int j = 0; j < map_w; j++)
 		{
-			//ustawianie wektora pozycji
+			
 			t_boxes[i][j].box_view.setPosition(vector_position);
 			window_sap.draw(t_boxes[i][j]);
-			vector_position.x += 30.f;
+			vector_position.x += t_boxes[0][0].size_box.x;
 		}
-		vector_position.x = 40.f;
-		vector_position.y += 30.f;
-		std::cout << std::endl;
+		vector_position.x = (window_w / 2) - (t_boxes[0][0].size_box.x * map_w) / 2;
+		vector_position.y += t_boxes[0][0].size_box.y;
 	}
 	return map1;
 }
