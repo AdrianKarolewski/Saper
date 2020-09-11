@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <string.h>
 
-Texts::Texts(sf::Font font, const char* st_come, sf::Color color, int size_s_come, sf::Vector2f vector_come_text, sf::Vector2f vector_come_box, sf::Vector2f vector_come_box_position)
+Texts::Texts(sf::Font &font, const char* st_come, sf::Color color, int size_s_come, sf::Vector2f vector_come_text, sf::Vector2f vector_come_box, sf::Vector2f vector_come_box_position)
 {
 	text_on_map.setFont(font);
 	text_on_map.setString(st_come);
@@ -21,6 +21,7 @@ Texts::~Texts()
 }
 void Texts::draw(sf::RenderTarget& target, sf::RenderStates state) const
 {
-	target.draw(this->text_on_map, state);
+	
 	target.draw(this->box_for_text, state);
+	target.draw(this->text_on_map, state);
 }

@@ -8,7 +8,6 @@
 #include "Map.h"
 #include "Texts.h"
 
-
 int window_w = GetSystemMetrics(SM_CXSCREEN), window_h = GetSystemMetrics(SM_CYSCREEN);
 
 bool menu(sf::Event event,unsigned int * g_m_w, unsigned int* g_m_h, unsigned int* m_o_m)
@@ -49,15 +48,15 @@ bool game(sf::Event event,Map * g_map_f, sf::RenderWindow *Saper_game)
     bool choose_lv = 1;
 
     g_map_f->draw_boxes(*Saper_game, g_map_f);
-    if (event.type == sf::Event::MouseButtonPressed)
+    if (g_map_f->Is_win())
+    {
+        
+    }
+    else if (event.type == sf::Event::MouseButtonPressed)
     {
         *click_x = ((event.mouseButton.x  + static_cast<long long>(30 * g_map_f->map_w /2) - (window_w / 2))) / 30;
         *click_y = ((event.mouseButton.y  + static_cast<long long>(30 * g_map_f->map_h /2) - (window_h / 2)))/ 30;
         
-        if ((event.mouseButton.x > 1235) && (event.mouseButton.x < 1385) && (event.mouseButton.y > 35) && (event.mouseButton.y < 75))
-        {
-            choose_lv = 0;
-        }
         if (!((*click_x > (g_map_f->map_w - 1)) || (*click_y > (g_map_f->map_h - 1))) && (!(*click_x < 0  || *click_y < 0)))
         {
             if (event.mouseButton.button == sf::Mouse::Right)
@@ -83,7 +82,10 @@ bool game(sf::Event event,Map * g_map_f, sf::RenderWindow *Saper_game)
                 if ((!g_map_f->t_boxes[*click_y][*click_x].is_block_b())
                     && (!g_map_f->t_boxes[*click_y][*click_x].is_flagged_b()))
                 {
-                    g_map_f->show_box(*click_x, *click_y);
+                    if (g_map_f->show_box(*click_x, *click_y))
+                    {
+                        return 0;
+                    }
                 }
             }
         }
@@ -103,18 +105,26 @@ bool game(sf::Event event,Map * g_map_f, sf::RenderWindow *Saper_game)
 }
 int main()
 {
+    
     //tworzenie okna
     sf::RenderWindow Saper(sf::VideoMode(window_w, window_h), "Saper");
     sf::Font font;
     sf::Event event;
 
+    // add fonts
+    if (!font.loadFromFile("Arial.ttf"))
+    {
+        std::cout << "Blad czcionki";
+    }
+
     int resultgame = 0;
     
     
-    Texts* lv_ea = new Texts(font, "Lv_easy", { 0, 0, 255 }, 50, { 600.f,315.f }, { 300.f,100.f }, { 700.f,350.f });
-    Texts* lv_me = new Texts(font, "Lv_medium", {0, 0, 255}, 50, { 570.f,465.f }, { 300.f,100.f }, { 700.f,500.f });
-    Texts* lv_ha = new Texts(font, "Lv_hard", { 0, 0, 255 }, 50, { 600.f,615.f }, { 300.f,100.f }, { 700.f,650.f });
-    Texts *reset, *win, *lost;
+    Texts* lv_ea = new Texts(font, "Lv_easy", { 0, 0, 255 }, 50, { static_cast<float>(window_w / 2)-100,315.f }, { 300.f,100.f }, { static_cast<float>(window_w/2),350.f });
+    Texts* lv_me = new Texts(font, "Lv_medium", {0, 0, 255}, 50, { static_cast<float>(window_w / 2)-130,465.f }, { 300.f,100.f }, { static_cast<float>(window_w/2),500.f });
+    Texts* lv_ha = new Texts(font, "Lv_hard", { 0, 0, 255 }, 50, { static_cast<float>(window_w / 2)-100,615.f }, { 300.f,100.f }, { static_cast<float>(window_w/2),650.f });
+    Texts* reset = new Texts(font, "Reset", { 0,0,255 }, 50, { static_cast<float>(window_w) - 300,50 }, { 200.f,80.f }, { static_cast<float>(window_w)-230, 80 });
+    Texts *win, *lost;
 
     unsigned int * Game_m_w = new unsigned int, *Game_m_h = new unsigned int, *Mines_on_map = new unsigned int;
     bool is_lv_choose = 0;
@@ -123,26 +133,30 @@ int main()
     // schownanie konsoli
     
 
-    if (!font.loadFromFile("Arial.ttf"))
-    {
-        std::cout << "Blad czcionki";
-    }
+    
     //petla gry
     while (Saper.isOpen())
     {
         Saper.clear(sf::Color (20,88,60));
-        
+       
         while (Saper.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
+                delete lv_ea, lv_me, lv_ha;
+                delete Game_m_h, Game_m_w, Mines_on_map;
                 Saper.close();
+            }
+                
         }
         // czyszczenie ekranu i nadanie koloru
         
         //wyswietlanie menu
         if (!(is_lv_choose))
         {
-            
+            Saper.draw(*lv_ea);
+            Saper.draw(*lv_me);
+            Saper.draw(*lv_ha);
             is_lv_choose = menu(event, Game_m_w, Game_m_h, Mines_on_map);
             // po wyborze tworzymy 
             if (is_lv_choose)
@@ -151,13 +165,14 @@ int main()
                 g_map = new Map(*Game_m_w, *Game_m_h, *Mines_on_map);
                 g_map = g_map->append_mines_add_val(g_map);
                 g_map->write_map();
-                delete Game_m_h, Game_m_w, Mines_on_map;
-                delete lv_ea, lv_me, lv_ha;
+                
+                
             }
         }
         //wyświetla rozgrywkę
         else if(is_lv_choose)
         {
+            Saper.draw(*reset);
             is_lv_choose = game(event, g_map, &Saper);
             if (!is_lv_choose)
             {
