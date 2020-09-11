@@ -7,7 +7,7 @@
 #include "Box.h"
 #include "Map.h"
 #include "Texts.h"
-
+// mała zmiana
 int window_w = GetSystemMetrics(SM_CXSCREEN), window_h = GetSystemMetrics(SM_CYSCREEN);
 
 bool menu(sf::Event event,unsigned int * g_m_w, unsigned int* g_m_h, unsigned int* m_o_m)
