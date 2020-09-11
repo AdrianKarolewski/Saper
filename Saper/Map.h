@@ -30,7 +30,7 @@ public:
 	Map* draw_boxes(sf::RenderWindow &window_sap,Map* map1);
 	Map* flagged_box(const unsigned int x, const unsigned int y, Map* map1);
 	Map* un_flagged_box(const unsigned int x, const unsigned int y, Map* map1);
-	void show_box(const unsigned int x, const unsigned int y);
+	bool show_box(const unsigned int x, const unsigned int y);
 	void add_to_show(unsigned int y, unsigned int x);
 	unsigned int get_how_much_flagged();
 	

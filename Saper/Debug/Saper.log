@@ -1,15 +1,1 @@
-﻿  Map.cpp
-  Saper.cpp
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(66,62): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(66,52): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(73,65): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(73,55): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(85,49): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(85,39): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(90,23): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(92,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(116,26): warning C4101: "lost": lokalna zmienna, do której nie istnieje odwołanie
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(116,20): warning C4101: "win": lokalna zmienna, do której nie istnieje odwołanie
-D:\Adrian_Studia_2\Saper_z_gita\Saper\Saper\Saper.cpp(116,12): warning C4101: "reset": lokalna zmienna, do której nie istnieje odwołanie
-  Generowanie kodu...
-  Saper.vcxproj -> D:\Adrian_Studia_2\Saper_z_gita\Saper\Debug\Saper.exe
+﻿  Saper.vcxproj -> D:\Adrian_Studia_2\Saper_z_gita\Saper\Debug\Saper.exe

@@ -555,7 +555,7 @@ void Map::add_to_show(unsigned int y, unsigned int x)
 		}
 	}
 }
-void Map::show_box(const unsigned int x, const unsigned int y)
+bool Map::show_box(const unsigned int x, const unsigned int y)
 {
 	t_boxes[y][x].is_block = 1;
 	t_boxes[y][x].show_it = 0;
@@ -593,5 +593,5 @@ void Map::show_box(const unsigned int x, const unsigned int y)
 		t_boxes[y][x].box_view.setTexture(&texturs[9]);
 		break;
 	}
-	
+	return t_boxes[y][x].is_mine;
 }
