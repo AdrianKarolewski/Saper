@@ -12,6 +12,7 @@ class Box : public sf::Drawable
 	bool is_mine, is_block, is_flagged, show_it;
 	sf::RectangleShape box_view;
 	friend class Map;
+	friend class Game;
 	sf::Vector2f size_box{30.f,30.f};
 	
 public:

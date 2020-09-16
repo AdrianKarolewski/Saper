@@ -1,1 +1,15 @@
-﻿  Saper.vcxproj -> D:\Adrian_Studia_2\Saper_z_gita\Saper\Debug\Saper.exe
+﻿  Box.cpp
+  Game.cpp
+D:\Projects\Saper\Saper\Game.cpp(96,64): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(96,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(103,67): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(103,57): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(115,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(115,44): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(124,23): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Game.cpp(126,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+  Map.cpp
+  Saper.cpp
+  Texts.cpp
+  Generowanie kodu...
+  Saper.vcxproj -> D:\Projects\Saper\Debug\Saper.exe

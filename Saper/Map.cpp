@@ -308,7 +308,7 @@ Map* Map::append_mines_add_val(Map * map1)
 }
 Map* Map::draw_boxes(sf::RenderWindow &window_sap, Map* map1)
 {
-	int window_w = GetSystemMetrics(SM_CXSCREEN), window_h = GetSystemMetrics(SM_CYSCREEN);
+	int window_w = window_sap.getSize().x, window_h = window_sap.getSize().y;
 	sf::Vector2f vector_position{ (window_w/2) - (t_boxes[0][0].size_box.x * map_w)/2, (window_h / 2) - (t_boxes[0][0].size_box.y * map_h)/2 };
 	
 	for (unsigned int i = 0; i < map_h; i++)

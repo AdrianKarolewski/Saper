@@ -12,6 +12,7 @@ class Map
 	
 	unsigned int how_much_flagged = 0;
 	bool is_win = 0;
+	friend class Game;
 	sf::Texture *texturs;
 
 public:
