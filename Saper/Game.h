@@ -18,9 +18,12 @@ public:
     Texts* reset;
     Texts* win ;
     Texts* lost;
+    Texts* end_in_menu;
+    Texts* end_in_game;
+    Texts* back_to_menu;
     unsigned int window_w, window_h ;
     unsigned int* Game_m_w = new unsigned int, * Game_m_h = new unsigned int, * Mines_on_map = new unsigned int;
-    Map* game_map;
+    Map* game_map = nullptr;
 
 public:
 	Game(sf::RenderWindow& Saper);

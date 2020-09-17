@@ -11,7 +11,7 @@ int main()
     sf::RenderWindow Saper(sf::VideoMode(0,0), "Saper",sf::Style::Fullscreen);
     Game* Game_Saper = new Game(Saper);
     sf::Event event;
- 
+    setlocale(LC_ALL, "polish");
     bool menu = 0;
     bool game = 0;
       

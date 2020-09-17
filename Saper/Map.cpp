@@ -10,7 +10,7 @@ int random(unsigned int max)
 	unsigned int digit = rand() % max;
 	return digit;
 }
-Map::Map(unsigned int m_w, unsigned int m_h, unsigned int c_mi, unsigned int h_m_falgged, bool i_win)
+Map::Map(unsigned int m_w, unsigned int m_h, unsigned int c_mi, sf::RenderWindow& Saper, unsigned int h_m_falgged, bool i_win)
 	: map_w(m_w),map_h(m_h),c_mines(c_mi)
 {
 	how_much_flagged = h_m_falgged;
@@ -22,6 +22,22 @@ Map::Map(unsigned int m_w, unsigned int m_h, unsigned int c_mi, unsigned int h_m
 	{
 		t_boxes[i] = new Box[map_w];
 	}
+	//ustawienie boxów
+	int window_w = Saper.getSize().x, window_h = Saper.getSize().y;
+	sf::Vector2f vector_position{ (window_w / 2) - (t_boxes[0][0].size_box.x * map_w) / 2, (window_h / 2) - (t_boxes[0][0].size_box.y * map_h) / 2 };
+
+	for (unsigned int i = 0; i < map_h; i++)
+	{
+		for (unsigned int j = 0; j < map_w; j++)
+		{
+
+			t_boxes[i][j].box_view.setPosition(vector_position);
+			vector_position.x += t_boxes[0][0].size_box.x;
+		}
+		vector_position.x = (window_w / 2) - (t_boxes[0][0].size_box.x * map_w) / 2;
+		vector_position.y += t_boxes[0][0].size_box.y;
+	}
+	///////////////////////
 	texturs = new sf::Texture[11];
 	if (!texturs[0].loadFromFile("Texturs/clear.png"))
 	{
@@ -77,22 +93,6 @@ Map::~Map()
 	}
 	delete[] t_boxes;
 	delete[] texturs;
-}
-void Map::write_map()
-{
-	std::cout << map_w << std::endl;
-	std::cout << map_h << std::endl;
-	std::cout << c_mines << std::endl;
-	std::cout << how_much_flagged << std::endl;
-	std::cout << is_win << std::endl;
-	for (unsigned int i = 0; i < map_h; i++)
-	{
-		for (unsigned int j = 0; j < map_w; j++)
-		{
-			std::cout<<t_boxes[i][j].value <<" ";
-		}
-		std::cout << std::endl;
-	}
 }
 Map* Map::update_val_box(Map* map1, unsigned int x, unsigned int y)
 {
@@ -308,20 +308,12 @@ Map* Map::append_mines_add_val(Map * map1)
 }
 Map* Map::draw_boxes(sf::RenderWindow &window_sap, Map* map1)
 {
-	int window_w = window_sap.getSize().x, window_h = window_sap.getSize().y;
-	sf::Vector2f vector_position{ (window_w/2) - (t_boxes[0][0].size_box.x * map_w)/2, (window_h / 2) - (t_boxes[0][0].size_box.y * map_h)/2 };
-	
 	for (unsigned int i = 0; i < map_h; i++)
 	{
 		for (unsigned int j = 0; j < map_w; j++)
 		{
-			
-			t_boxes[i][j].box_view.setPosition(vector_position);
 			window_sap.draw(t_boxes[i][j]);
-			vector_position.x += t_boxes[0][0].size_box.x;
 		}
-		vector_position.x = (window_w / 2) - (t_boxes[0][0].size_box.x * map_w) / 2;
-		vector_position.y += t_boxes[0][0].size_box.y;
 	}
 	return map1;
 }
@@ -346,7 +338,7 @@ Map* Map::flagged_box(const unsigned int x, const unsigned int y,Map * map1)
 	t_boxes[y][x].box_view.setTexture(&texturs[10]);
 	t_boxes[y][x].is_block = 1;
 	t_boxes[y][x].is_flagged = 1;
-	how_much_flagged++;
+	if (t_boxes[y][x].is_mine){ how_much_flagged++; }
 	return map1;
 }
 Map* Map::un_flagged_box(const unsigned int x, const unsigned int y, Map* map1)
@@ -354,7 +346,7 @@ Map* Map::un_flagged_box(const unsigned int x, const unsigned int y, Map* map1)
 	t_boxes[y][x].box_view.setTexture(NULL);
 	t_boxes[y][x].is_block = 0;
 	t_boxes[y][x].is_flagged = 0;
-	how_much_flagged--;
+	if (t_boxes[y][x].is_mine){ how_much_flagged--; }
 	return map1;
 }
 void Map::add_to_show(unsigned int y, unsigned int x)
@@ -594,4 +586,16 @@ bool Map::show_box(const unsigned int x, const unsigned int y)
 		break;
 	}
 	return t_boxes[y][x].is_mine;
+}
+bool Map::click_on_map(const unsigned int& x, const unsigned int& y)
+{
+	if ((x > t_boxes[0][0].box_view.getPosition().x) && (x < t_boxes[map_h-1][map_w-1].box_view.getPosition().x + t_boxes[map_h-1][map_w-1].box_view.getSize().x))
+	{
+		if ((y > t_boxes[0][0].box_view.getPosition().y) && (y < t_boxes[map_h - 1][map_w - 1].box_view.getPosition().y + t_boxes[map_h - 1][map_w - 1].box_view.getSize().y))
+		{
+			return 1;
+		}
+	}
+
+	return 0;
 }

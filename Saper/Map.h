@@ -8,8 +8,6 @@
 
 class Map
 {
-
-	
 	unsigned int how_much_flagged = 0;
 	bool is_win = 0;
 	friend class Game;
@@ -19,9 +17,9 @@ public:
 	const unsigned int map_w, map_h, c_mines;
 	Box** t_boxes = nullptr;
 
-	Map(unsigned int m_w, unsigned int m_h, unsigned int c_mi, unsigned int h_m_falgged = 0, bool is_win = 0);
+	Map(unsigned int m_w, unsigned int m_h, unsigned int c_mi, sf::RenderWindow& Saper, unsigned int h_m_falgged = 0, bool is_win = 0);
 	~Map();
-	void write_map();
+
 	bool Is_win();
 	
 	bool Is_win(bool change);
@@ -34,6 +32,7 @@ public:
 	bool show_box(const unsigned int x, const unsigned int y);
 	void add_to_show(unsigned int y, unsigned int x);
 	unsigned int get_how_much_flagged();
+	bool click_on_map(const unsigned int &x, const unsigned int &y);
 	
 };
 
