@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <Windows.h>
+
 
 class Texts : public sf::Drawable
 {

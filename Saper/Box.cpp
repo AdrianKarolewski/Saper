@@ -1,4 +1,5 @@
 #include "Box.h"
+
 Box::Box(char val, bool is_m, bool is_b, bool is_fl, bool show_i)
 {
 	value = val;
