@@ -1,13 +1,15 @@
 ﻿  Game.cpp
-D:\Projects\Saper\Saper\Game.cpp(137,64): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(137,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(148,67): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(148,57): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(156,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(156,44): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(166,23): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-D:\Projects\Saper\Saper\Game.cpp(168,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Game.cpp(126,64): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(126,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(140,67): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(140,57): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(150,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(150,44): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
+D:\Projects\Saper\Saper\Game.cpp(160,23): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Game.cpp(162,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
   Map.cpp
+D:\Projects\Saper\Saper\Map.cpp(575,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Map.cpp(577,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
   Saper.cpp
   Generowanie kodu...
   Saper.vcxproj -> D:\Projects\Saper\Debug\Saper.exe

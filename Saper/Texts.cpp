@@ -1,7 +1,5 @@
 #include "Texts.h"
-#include <SFML/Graphics.hpp>
-#include <string.h>
-#include <iostream>
+
 Texts::Texts(sf::Font &font, const char* st_come, sf::Color color,const int &size_s_come, sf::Vector2f vector_come_text_pos, sf::Vector2f vector_come_box, sf::Vector2f vector_come_box_position)
 {
 	text_on_map.setFont(font);

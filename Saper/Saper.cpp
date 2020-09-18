@@ -7,14 +7,17 @@
 
 int main()
 {
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
     //tworzenie okna
     sf::RenderWindow Saper(sf::VideoMode(0,0), "Saper",sf::Style::Fullscreen);
     Game* Game_Saper = new Game(Saper);
     sf::Event event;
-    setlocale(LC_ALL, "polish");
+    
     bool menu = 0;
     bool game = 0;
-      
+     
+    
+
     while (Saper.isOpen())
     {
         Saper.clear(sf::Color (20,88,60));
@@ -30,11 +33,13 @@ int main()
         {
             menu = Game_Saper->menu(event, Saper);
             game = menu;
+            event.mouseButton.x = 0;
+            event.mouseButton.y = 0;
         }
         if (game)
         {
             game = Game_Saper->game(event, Saper);
-            menu = game;
+            menu = game;     
         }
         
         Saper.display();

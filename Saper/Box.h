@@ -1,10 +1,6 @@
 #pragma once
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <stdlib.h>
 
-#include <Windows.h>
-#include "Box.h"
+#include <SFML/Graphics.hpp>
 
 class Box : public sf::Drawable
 {

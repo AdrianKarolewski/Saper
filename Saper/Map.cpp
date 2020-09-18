@@ -1,20 +1,14 @@
 #include "Map.h"
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <stdlib.h>
-
-#include <Windows.h>
 #include "Box.h"
+#include <iostream>
 int random(unsigned int max)
 {
 	unsigned int digit = rand() % max;
 	return digit;
 }
-Map::Map(unsigned int m_w, unsigned int m_h, unsigned int c_mi, sf::RenderWindow& Saper, unsigned int h_m_falgged, bool i_win)
+Map::Map(unsigned int &m_w, unsigned int &m_h, unsigned int &c_mi, sf::RenderWindow& Saper)
 	: map_w(m_w),map_h(m_h),c_mines(c_mi)
 {
-	how_much_flagged = h_m_falgged;
-	is_win = i_win;
 	// rezerwacja miejsca w pamiêci na boxy
 	t_boxes = new Box * [map_h];
 	
@@ -94,7 +88,7 @@ Map::~Map()
 	delete[] t_boxes;
 	delete[] texturs;
 }
-Map* Map::update_val_box(Map* map1, unsigned int x, unsigned int y)
+Map* Map::update_val_box(Map* map1, const unsigned int &x, const unsigned int &y)
 {
 	if ((x == 0) && (y == 0))
 	{
@@ -317,22 +311,11 @@ Map* Map::draw_boxes(sf::RenderWindow &window_sap, Map* map1)
 	}
 	return map1;
 }
-// zwraca wartoœc elementu
 bool Map::Is_win()
 {
 	return how_much_flagged == c_mines ?  true :  false;
 }
-// zmienia wartosc elementu i j¹ zwraca
-bool Map::Is_win(bool change)
-{
-	is_win = change;
-	return is_win;
-}
-unsigned int Map::get_how_much_flagged()
-{
-	return how_much_flagged;
-}
-Map* Map::flagged_box(const unsigned int x, const unsigned int y,Map * map1)
+Map* Map::flagged_box(const unsigned int &x, const unsigned int &y,Map * map1)
 {
 	
 	t_boxes[y][x].box_view.setTexture(&texturs[10]);
@@ -341,7 +324,7 @@ Map* Map::flagged_box(const unsigned int x, const unsigned int y,Map * map1)
 	if (t_boxes[y][x].is_mine){ how_much_flagged++; }
 	return map1;
 }
-Map* Map::un_flagged_box(const unsigned int x, const unsigned int y, Map* map1)
+Map* Map::un_flagged_box(const unsigned int &x, const unsigned int &y, Map* map1)
 {
 	t_boxes[y][x].box_view.setTexture(NULL);
 	t_boxes[y][x].is_block = 0;
@@ -349,7 +332,7 @@ Map* Map::un_flagged_box(const unsigned int x, const unsigned int y, Map* map1)
 	if (t_boxes[y][x].is_mine){ how_much_flagged--; }
 	return map1;
 }
-void Map::add_to_show(unsigned int y, unsigned int x)
+void Map::add_to_show(const unsigned int &y,const unsigned int &x)
 {
 	if ((x == 0) && (y == 0))
 	{
@@ -547,7 +530,7 @@ void Map::add_to_show(unsigned int y, unsigned int x)
 		}
 	}
 }
-bool Map::show_box(const unsigned int x, const unsigned int y)
+bool Map::show_box(const unsigned int &x, const unsigned int &y)
 {
 	t_boxes[y][x].is_block = 1;
 	t_boxes[y][x].show_it = 0;
@@ -586,6 +569,20 @@ bool Map::show_box(const unsigned int x, const unsigned int y)
 		break;
 	}
 	return t_boxes[y][x].is_mine;
+}
+void Map::show_boombs()
+{
+	for (int i = 0; i < map_h; i++)
+	{
+		for (int j = 0; j < map_w; j++)
+		{
+			t_boxes[i][j].is_block = 1;
+			if ((t_boxes[i][j].is_mine)&&!(t_boxes[i][j].is_flagged))
+			{
+				t_boxes[i][j].box_view.setTexture(&texturs[9]);
+			}
+		}
+	}
 }
 bool Map::click_on_map(const unsigned int& x, const unsigned int& y)
 {
