@@ -1,15 +1,23 @@
-﻿  Game.cpp
-D:\Projects\Saper\Saper\Game.cpp(126,64): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(126,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(140,67): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(140,57): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(150,54): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(150,44): warning C4244: "argument": konwersja z "__int64" do "const unsigned int", możliwa utrata danych
-D:\Projects\Saper\Saper\Game.cpp(160,23): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-D:\Projects\Saper\Saper\Game.cpp(162,27): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  Map.cpp
-D:\Projects\Saper\Saper\Map.cpp(575,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-D:\Projects\Saper\Saper\Map.cpp(577,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  Saper.cpp
-  Generowanie kodu...
+﻿  Map.cpp
+D:\Projects\Saper\Saper\Map.cpp(22,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Map.cpp(24,22): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Map.cpp(31,13): warning C4244: "inicjowanie": konwersja z "const T" do "int", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(32,13): warning C4244: "inicjowanie": konwersja z "const T" do "int", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(45,38): warning C4244: "=": konwersja z "unsigned int" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(599,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Map.cpp(601,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Map.cpp(613,36): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+D:\Projects\Saper\Saper\Map.cpp(615,37): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
   Saper.vcxproj -> D:\Projects\Saper\Debug\Saper.exe

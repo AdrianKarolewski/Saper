@@ -4,7 +4,8 @@
 
 class Map
 {
-	unsigned int how_much_flagged = 0;
+	unsigned int how_much_bombs_flagged = 0;
+	unsigned int how_much_put_flags = 0;
 	bool win_b = 0, lost_b = 0;
 	friend class Game;
 	sf::Texture *texturs;
@@ -26,6 +27,7 @@ public:
 	bool show_box(const unsigned int &x, const unsigned int &y);
 	void add_to_show(const unsigned int &y,const unsigned int &x);
 	void show_boombs();
+	void show_one_bomb();
 	bool click_on_map(const unsigned int &x, const unsigned int &y);
 };
 
