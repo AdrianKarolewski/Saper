@@ -17,22 +17,36 @@ Map::Map(unsigned int &m_w, unsigned int &m_h, unsigned int &c_mi, sf::RenderWin
 		t_boxes[i] = new Box[map_w];
 	}
 	//ustawienie boxów
+	if (Saper.getSize().x < 1400)
+	{
+		for (int i = 0; i < map_h; i++)
+		{
+			for (int j = 0; j < map_w; j++)
+			{
+				t_boxes[i][j].box_view.setSize({ 20.f,20.f });
+			}
+		}
+	}
 	int window_w = Saper.getSize().x, window_h = Saper.getSize().y;
-	sf::Vector2f vector_position{ (window_w / 2) - (t_boxes[0][0].size_box.x * map_w) / 2, (window_h / 2) - (t_boxes[0][0].size_box.y * map_h) / 2 };
+	int x_push = t_boxes[0][0].box_view.getSize().x;
+	int y_push = t_boxes[0][0].box_view.getSize().y;
 
+	sf::Vector2f vector_position{ (window_w / 2) - (t_boxes[0][0].box_view.getSize().x * map_w) / 2, (window_h / 2) - (t_boxes[0][0].box_view.getSize().y * map_h) / 2 };
+
+	
 	for (unsigned int i = 0; i < map_h; i++)
 	{
 		for (unsigned int j = 0; j < map_w; j++)
 		{
 
 			t_boxes[i][j].box_view.setPosition(vector_position);
-			vector_position.x += t_boxes[0][0].size_box.x;
+			vector_position.x += x_push;
 		}
-		vector_position.x = (window_w / 2) - (t_boxes[0][0].size_box.x * map_w) / 2;
-		vector_position.y += t_boxes[0][0].size_box.y;
+		vector_position.x = (window_w / 2) - (x_push * map_w) / 2;
+		vector_position.y += y_push;
 	}
 	///////////////////////
-	texturs = new sf::Texture[11];
+	texturs = new sf::Texture[12];
 	if (!texturs[0].loadFromFile("Texturs/clear.png"))
 	{
 		std::cout << "B³¹d wczytania textur";
@@ -74,6 +88,10 @@ Map::Map(unsigned int &m_w, unsigned int &m_h, unsigned int &c_mi, sf::RenderWin
 		std::cout << "B³¹d wczytania textur";
 	}
 	if (!texturs[10].loadFromFile("Texturs/flag.png"))
+	{
+		std::cout << "B³¹d wczytania textur";
+	}
+	if (!texturs[11].loadFromFile("Texturs/bombX.png"))
 	{
 		std::cout << "B³¹d wczytania textur";
 	}
@@ -313,7 +331,11 @@ Map* Map::draw_boxes(sf::RenderWindow &window_sap, Map* map1)
 }
 bool Map::Is_win()
 {
-	return how_much_flagged == c_mines ?  true :  false;
+	if (how_much_bombs_flagged == how_much_put_flags)
+	{
+		return how_much_bombs_flagged == c_mines ? true : false;
+	}
+	return 0;
 }
 Map* Map::flagged_box(const unsigned int &x, const unsigned int &y,Map * map1)
 {
@@ -321,7 +343,8 @@ Map* Map::flagged_box(const unsigned int &x, const unsigned int &y,Map * map1)
 	t_boxes[y][x].box_view.setTexture(&texturs[10]);
 	t_boxes[y][x].is_block = 1;
 	t_boxes[y][x].is_flagged = 1;
-	if (t_boxes[y][x].is_mine){ how_much_flagged++; }
+	how_much_put_flags++;
+	if (t_boxes[y][x].is_mine){ how_much_bombs_flagged++; }
 	return map1;
 }
 Map* Map::un_flagged_box(const unsigned int &x, const unsigned int &y, Map* map1)
@@ -329,7 +352,8 @@ Map* Map::un_flagged_box(const unsigned int &x, const unsigned int &y, Map* map1
 	t_boxes[y][x].box_view.setTexture(NULL);
 	t_boxes[y][x].is_block = 0;
 	t_boxes[y][x].is_flagged = 0;
-	if (t_boxes[y][x].is_mine){ how_much_flagged--; }
+	how_much_put_flags--;
+	if (t_boxes[y][x].is_mine){ how_much_bombs_flagged--; }
 	return map1;
 }
 void Map::add_to_show(const unsigned int &y,const unsigned int &x)
@@ -580,6 +604,23 @@ void Map::show_boombs()
 			if ((t_boxes[i][j].is_mine)&&!(t_boxes[i][j].is_flagged))
 			{
 				t_boxes[i][j].box_view.setTexture(&texturs[9]);
+			}
+		}
+	}
+}
+void Map::show_one_bomb()
+{
+	for (int i = random(map_h) - 1; i < map_h; i++)
+	{
+		for (int j = random(map_w) - 1; j < map_w; j++)
+		{
+			if ((t_boxes[i][j].is_mine)&&(!t_boxes[i][j].is_flagged))
+			{
+				t_boxes[i][j].is_block = 1;
+				t_boxes[i][j].show_it = 0;
+				t_boxes[i][j].box_view.setTexture(&texturs[11]);
+				how_much_bombs_flagged += 1;
+				return;
 			}
 		}
 	}
