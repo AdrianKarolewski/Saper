@@ -22,7 +22,6 @@ Texts::~Texts()
 }
 void Texts::draw(sf::RenderTarget& target, sf::RenderStates state) const
 {
-	
 	target.draw(this->box_for_text, state);
 	target.draw(this->text_on_map, state);
 }
