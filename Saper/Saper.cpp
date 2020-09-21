@@ -16,8 +16,6 @@ int main()
     bool menu = 0;
     bool game = 0;
      
-    
-
     while (Saper.isOpen())
     {
         Saper.clear(sf::Color (20,88,60));

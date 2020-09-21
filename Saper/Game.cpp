@@ -19,11 +19,11 @@ Game::Game(sf::RenderWindow &Saper)
     back_to_menu = new Texts(font, "Menu", { 0,0,255 }, 50, { 200.f,80.f }, { static_cast<float>(window_w) - 230.f, 230.f });
     end_in_game = new Texts(font, "Exit",  { 0,0,255 }, 50, { 200.f,80.f }, { static_cast<float>(window_w) - 230.f, 330.f });
     
-    win = new Texts(font, "Winner",     { 0,0,0 }, 100,  {500.f,500.f }, { static_cast<float>(window_w) / 2,static_cast<float>(window_h)/2 });
-    lost = new Texts(font, "Defeater",  { 0,0,0 }, 100,  {500.f,500.f }, { static_cast<float>(window_w) / 2, static_cast<float>(window_h)/2 });
+    win = new Texts(font, "WIN",     { 255,255,255 }, 60,  {250.f,150.f }, { static_cast<float>(window_w) / 2,static_cast<float>(window_h)/2 });
+    lost = new Texts(font, "BOOOM",  { 0,0,0 }, 100,  {850.f,750.f }, { static_cast<float>(window_w) / 2, static_cast<float>(window_h)/2 });
     
-    win->box_for_text.setFillColor({ 255,255,255 });
-    lost->box_for_text.setFillColor({ 255,255,255 });
+    win->box_for_text.setFillColor({ 200,50,50 });
+    lost->box_for_text.setOutlineThickness(NULL);
 
     clock = new Texts(font, "",     { 0,0,255 }, 40,{ 300.f,80.f }, { 200.f,130.f });
     n_o_flags = new Texts(font, "", { 0,0,255 }, 40, { 300.f,80.f }, { 200.f,230.f });
@@ -36,8 +36,10 @@ Game::~Game()
 {
     delete lv_ea, lv_me, lv_ha, reset, win, lost,end_in_game,end_in_menu,back_to_menu,clock,lifebuoy,n_o_flags;
     delete Game_m_h, Game_m_w, Mines_on_map;
+
     if (game_map != nullptr) { delete game_map; }
 }
+
 void Game::center_txt(Map* m1,const unsigned int &s)
 {
     if (999 - s > 998)
@@ -61,6 +63,7 @@ void Game::center_txt(Map* m1,const unsigned int &s)
         n_o_flags->text_on_map.setPosition(n_o_flags->box_for_text.getPosition());
     }
 }
+
 bool Game::menu(sf::Event &event,sf::RenderWindow &Saper)
 {
     bool choose_lv = 0;
@@ -90,6 +93,7 @@ bool Game::menu(sf::Event &event,sf::RenderWindow &Saper)
             *Game_m_w = 20;
             *Game_m_h = 30;
             *Mines_on_map = 100;
+            
         }
         else if (lv_ha->click_on_text_box(mouse_x, mouse_y))
         {
@@ -97,6 +101,7 @@ bool Game::menu(sf::Event &event,sf::RenderWindow &Saper)
             *Game_m_w = 40;
             *Game_m_h = 30;
             *Mines_on_map = 220;
+            
         }
         else if (end_in_menu->click_on_text_box(mouse_x, mouse_y))
         {
@@ -106,6 +111,7 @@ bool Game::menu(sf::Event &event,sf::RenderWindow &Saper)
         {
             game_map = new Map(*Game_m_w, *Game_m_h, *Mines_on_map, Saper);
             game_map = game_map->append_mines_add_val(game_map);
+            lost->box_for_text.setTexture(&game_map->texturs[12]);
             start = std::clock();
         }
     }
@@ -134,7 +140,6 @@ bool Game::game(sf::Event& event, sf::RenderWindow& Saper)
         secounds = (std::clock() - start) / CLOCKS_PER_SEC;
     }
 
-    
     Saper.draw(*reset);
     Saper.draw(*end_in_game);
     Saper.draw(*back_to_menu);
@@ -146,7 +151,6 @@ bool Game::game(sf::Event& event, sf::RenderWindow& Saper)
     mouse_y = event.mouseButton.y;
     if (event.mouseButton.button == sf::Mouse::Left)
     {
-        
         if (reset->click_on_text_box(mouse_x, mouse_y))
         {
             delete game_map;
@@ -184,58 +188,8 @@ bool Game::game(sf::Event& event, sf::RenderWindow& Saper)
     {
         if (game_map->click_on_map(mouse_x, mouse_y))
         {
-            long long* click_x = new long long, * click_y = new long long;
-            // obliczanie indexów tablicy boxów
-            *click_x = ((event.mouseButton.x + static_cast<long long>(30 * game_map->map_w / 2) - (window_w / 2))) / 30;
-            *click_y = ((event.mouseButton.y + static_cast<long long>(30 * game_map->map_h / 2) - (window_h / 2))) / 30;
-            //oflagowanie boxa
-            if (event.mouseButton.button == sf::Mouse::Right)
-            {
-                if (!game_map->t_boxes[*click_y][*click_x].is_block_b())
-                {
-                    game_map = game_map->flagged_box(*click_x, *click_y, game_map);
-                }
-            }
-            // wygran
-            if (game_map->Is_win())
-            {               
-                game_map->show_boombs();
-                game_map->win_b = 1;                
-            }
-            // odflagowywani boxa
-            if (event.mouseButton.button == sf::Mouse::Middle)
-            {
-                if (game_map->t_boxes[*click_y][*click_x].is_flagged_b())
-                {
-                    game_map = game_map->un_flagged_box(*click_x, *click_y, game_map);
-                }
-            }
-            // otwieranie boxa
-            if (event.mouseButton.button == sf::Mouse::Left)
-            {
-                if ((!game_map->t_boxes[*click_y][*click_x].is_block_b())
-                    && (!game_map->t_boxes[*click_y][*click_x].is_flagged_b()))
-                {
-                    // przegrana
-                    if (game_map->show_box(*click_x, *click_y))
-                    {                        
-                        game_map->show_boombs();
-                        game_map->lost_b = 1;                       
-                    }
-                }
-            }
-            delete click_x, click_y;
+            game_map->click_handle(mouse_x, mouse_y,Saper,event);
         }     
-    }
-    for (int i = 0; i < game_map->map_h; i++)
-    {
-        for (int j = 0; j < game_map->map_w; j++)
-        {
-            if (game_map->t_boxes[i][j].is_show_it() == 1)
-            {
-                game_map->show_box(j, i);
-            }
-        }
     }
     if (game_map->win_b)
     {
