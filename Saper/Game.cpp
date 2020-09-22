@@ -9,28 +9,26 @@ Game::Game(sf::RenderWindow &Saper)
     if (!font.loadFromFile("Arial.ttf")) { std::cout << "Error font add";}
     window_w = Saper.getSize().x;
     window_h = Saper.getSize().y;
-
-    lv_ea = new Texts(font, "Lv_easy",   { 0, 0, 255 }, 50,  { 300.f,100.f }, { static_cast<float>(window_w / 2),350.f });
-    lv_me = new Texts(font, "Lv_medium", { 0, 0, 255 }, 50,  { 300.f,100.f }, { static_cast<float>(window_w / 2),500.f });
-    lv_ha = new Texts(font, "Lv_hard",   { 0, 0, 255 }, 50,  { 300.f,100.f }, { static_cast<float>(window_w / 2),650.f });
-    end_in_menu = new Texts(font, "Exit",{ 0, 0, 255 }, 50,  { 300.f,100.f }, { static_cast<float>(window_w / 2),800.f });
-
-    reset = new Texts(font, "Reset",       { 0,0,255 }, 50, { 200.f,80.f }, { static_cast<float>(window_w) - 230.f, 130.f });
-    back_to_menu = new Texts(font, "Menu", { 0,0,255 }, 50, { 200.f,80.f }, { static_cast<float>(window_w) - 230.f, 230.f });
-    end_in_game = new Texts(font, "Exit",  { 0,0,255 }, 50, { 200.f,80.f }, { static_cast<float>(window_w) - 230.f, 330.f });
     
-    win = new Texts(font, "WIN",     { 255,255,255 }, 60,  {250.f,150.f }, { static_cast<float>(window_w) / 2,static_cast<float>(window_h)/2 });
-    lost = new Texts(font, "BOOOM",  { 0,0,0 }, 100,  {850.f,750.f }, { static_cast<float>(window_w) / 2, static_cast<float>(window_h)/2 });
+    lv_ea = new Texts(font, "Lv_easy",   { 0, 0, 255 }, 0.045 * window_h,  { static_cast < float>(0.156 * window_w),static_cast <float>(0.092 * window_h) }, { static_cast<float>(window_w / 2),static_cast <float>(0.324 * window_h) });
+    lv_me = new Texts(font, "Lv_medium", { 0, 0, 255 }, 0.045 * window_h,  { static_cast <float>(0.156 * window_w),static_cast <float>(0.092 * window_h) }, { static_cast<float>(window_w / 2),static_cast <float>(0.462 * window_h) });
+    lv_ha = new Texts(font, "Lv_hard",   { 0, 0, 255 }, 0.045 * window_h,  { static_cast <float>(0.156 * window_w),static_cast <float>(0.092 * window_h) }, { static_cast<float>(window_w / 2),static_cast <float>(0.601 * window_h) });
+    end_in_menu = new Texts(font, "Exit",{ 0, 0, 255 }, 0.045 * window_h,  { static_cast <float>(0.156 * window_w),static_cast <float>(0.092 * window_h) }, { static_cast<float>(window_w / 2),static_cast <float>(0.740 * window_h) });
+
+    reset = new Texts(font, "Reset",       { 0,0,255 }, 0.045 * window_h, { static_cast <float>(0.104 * window_w),static_cast <float>(0.074 * window_h) }, { static_cast<float>(window_w) - static_cast<float>(0.119 * window_w), static_cast <float>(0.120 * window_h) });
+    back_to_menu = new Texts(font, "Menu", { 0,0,255 }, 0.045 * window_h, { static_cast <float>(0.104 * window_w),static_cast <float>(0.074 * window_h) }, { static_cast<float>(window_w) - static_cast<float>(0.119 * window_w), static_cast <float>(0.212 * window_h) });
+    end_in_game = new Texts(font, "Exit",  { 0,0,255 }, 0.045 * window_h, { static_cast <float>(0.104 * window_w),static_cast <float>(0.074 * window_h) }, { static_cast<float>(window_w) - static_cast<float>(0.119 * window_w), static_cast <float>(0.305 * window_h) });
+    
+    win = new Texts(font, "WIN",     { 255,255,255 }, 0.055 * window_h,  { static_cast <float>(0.130 * window_w),static_cast <float>(0.138 * window_h) }, { static_cast<float>(window_w) / 2,static_cast<float>(window_h)/2 });
+    lost = new Texts(font, "BOOOM",  { 0,0,0 },       0.092 * window_h,  { static_cast <float>(0.442 * window_w),static_cast <float>(0.694 * window_h) }, { static_cast<float>(window_w) / 2, static_cast<float>(window_h)/2 });
     
     win->box_for_text.setFillColor({ 200,50,50 });
     lost->box_for_text.setOutlineThickness(NULL);
 
-    clock = new Texts(font, "",     { 0,0,255 }, 40,{ 300.f,80.f }, { 200.f,130.f });
-    n_o_flags = new Texts(font, "", { 0,0,255 }, 40, { 300.f,80.f }, { 200.f,230.f });
+    clock = new Texts(font, "",     { 0,0,255 }, 0.037 * window_h,{ static_cast <float>(0.156 * window_w),static_cast <float>(0.074 * window_h) }, { static_cast <float>(0.104 * window_w),static_cast <float>(0.120 * window_h) });
+    n_o_flags = new Texts(font, "", { 0,0,255 }, 0.037 * window_h, { static_cast <float>(0.156 * window_w),static_cast <float>(0.074 * window_h) }, { static_cast <float>(0.104 * window_w),static_cast <float>(0.212 * window_h) });
 
-    lifebuoy = new Texts(font, "Bobm for time",  { 0,0,255 }, 40, { 300.f,80.f }, { 200.f,330.f });
-    
-
+    lifebuoy = new Texts(font, "Bobm for time",  { 0,0,255 }, 0.037 * window_h, { static_cast <float>(0.156 * window_w),static_cast <float>(0.074 * window_h) }, { static_cast <float>(0.104 * window_w),static_cast <float>(0.305 * window_h) });
 }
 Game::~Game()
 {
@@ -111,7 +109,7 @@ bool Game::menu(sf::Event &event,sf::RenderWindow &Saper)
         {
             game_map = new Map(*Game_m_w, *Game_m_h, *Mines_on_map, Saper);
             game_map = game_map->append_mines_add_val(game_map);
-            lost->box_for_text.setTexture(&game_map->texturs[12]);
+            
             start = std::clock();
         }
     }
@@ -197,6 +195,7 @@ bool Game::game(sf::Event& event, sf::RenderWindow& Saper)
     }
     else if (game_map->lost_b)
     {
+        lost->box_for_text.setTexture(&game_map->texturs[12]);
         Saper.draw(*lost);
     }
     return choose_lv;

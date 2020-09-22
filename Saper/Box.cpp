@@ -7,7 +7,6 @@ Box::Box(char val, bool is_m, bool is_b, bool is_fl, bool show_i)
 	is_block = is_b;
 	is_flagged = is_fl;
 	show_it = show_i;
-	box_view.setSize(size_box);
 	box_view.setFillColor(sf::Color(160, 160, 160));	
 	box_view.setOutlineThickness(2.f);
 	box_view.setOutlineColor(sf::Color(0, 0, 255));
