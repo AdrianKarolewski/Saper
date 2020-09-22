@@ -16,34 +16,31 @@ Map::Map(unsigned int &m_w, unsigned int &m_h, unsigned int &c_mi, sf::RenderWin
 	{
 		t_boxes[i] = new Box[map_w];
 	}
-	//ustawienie boxów
-	if (Saper.getSize().x < 1400)
+	int window_w = Saper.getSize().x, window_h = Saper.getSize().y;
+	for (int i = 0; i < map_h; i++)
 	{
-		for (int i = 0; i < map_h; i++)
+		for (int j = 0; j < map_w; j++)
 		{
-			for (int j = 0; j < map_w; j++)
-			{
-				t_boxes[i][j].box_view.setSize({ 20.f,20.f });
-			}
+			t_boxes[i][j].box_view.setSize({ static_cast<float>(0.015625 * window_w),static_cast<float>(0.015625 * window_w) });
+			t_boxes[i][j].size_box = { t_boxes[i][j].box_view.getSize().x,t_boxes[i][j].box_view.getSize().y };
 		}
 	}
-	int window_w = Saper.getSize().x, window_h = Saper.getSize().y;
+	//ustawienie boxów
+	
 	int x_push = t_boxes[0][0].box_view.getSize().x;
 	int y_push = t_boxes[0][0].box_view.getSize().y;
 
-	sf::Vector2f vector_position{ (window_w / 2) - (t_boxes[0][0].box_view.getSize().x * map_w) / 2, (window_h / 2) - (t_boxes[0][0].box_view.getSize().y * map_h) / 2 };
+	sf::Vector2f vector_position{ static_cast<float>((window_w / 2) - (x_push * map_w) / 2), static_cast<float>((window_h / 2) - (y_push * map_h) / 2) };
 
-	
 	for (unsigned int i = 0; i < map_h; i++)
 	{
 		for (unsigned int j = 0; j < map_w; j++)
 		{
-
 			t_boxes[i][j].box_view.setPosition(vector_position);
 			vector_position.x += x_push;
 		}
-		vector_position.x = (window_w / 2) - (x_push * map_w) / 2;
-		vector_position.y += y_push;
+		vector_position.x = static_cast<float>((window_w / 2) - (x_push * map_w) / 2);
+		vector_position.y += static_cast<float>(y_push);
 	}
 	///////////////////////
 	texturs = new sf::Texture[14];
@@ -662,6 +659,5 @@ bool Map::click_on_map(const unsigned int& x, const unsigned int& y)
 			return 1;
 		}
 	}
-
 	return 0;
 }
