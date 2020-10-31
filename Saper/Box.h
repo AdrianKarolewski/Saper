@@ -1,23 +1,32 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 
 class Box : public sf::Drawable
 {
-	char value;
-	bool is_mine, is_block, is_flagged, show_it;
-	sf::RectangleShape box_view;
-	friend class Map;
-	friend class Game;
-	sf::Vector2f size_box{30.f,30.f};
-	
 public:
-	Box(char val = '0', bool is_m = 0, bool is_b = 0, bool is_fl = 0, bool show_i = 0);
-	
+	Box(sf::Vector2f && v);
 	~Box();
+	sf::Vector2f Get_box_size();
+	sf::Vector2f Get_box_pos();
+	void Set_tex(sf::Texture &t);
+	void Clear_tex();
+	void Set_position(sf::Vector2f &v);
+	void Set_block(bool&& b);
+	void Set_show_it(bool&& b);
+	void Set_mine(bool&& b);
+	void Set_is_flagged(bool&& b);
+	void Set_val(const char b);
+	void Up_value();
 	void draw(sf::RenderTarget& target, sf::RenderStates state) const;
-	bool is_block_b();
-	bool is_flagged_b();
-	bool is_show_it();
+
+	const char& Get_val();
+	bool Is_mine_b();
+	bool Is_block_b();
+	bool Is_flagged_b();
+	bool Is_show_it();
+private:
+	char m_value = '0';
+	bool is_mine = 0, is_block = 0, is_flagged = 0, show_it = 0;
+	sf::RectangleShape *box_view = nullptr;
 };
 
