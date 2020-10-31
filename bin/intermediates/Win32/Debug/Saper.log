@@ -1,0 +1,41 @@
+﻿  Box.cpp
+  Game.cpp
+  Map.cpp
+D:\Projects\Saper\Saper\Map.cpp(21,20): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(23,21): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(31,13): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(32,13): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(524,20): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(526,21): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(538,38): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(540,39): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(558,117): warning C4244: '=': conversion from 'T' to '__int64', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(559,117): warning C4244: '=': conversion from 'T' to '__int64', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(565,26): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(565,16): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(576,29): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(576,19): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(586,27): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(586,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(593,20): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(595,21): warning C4018: '<': signed/unsigned mismatch
+  Saper.cpp
+  Texts.cpp
+  Generating Code...
+  Saper.vcxproj -> D:\Projects\Saper\\bin\Win32\Debug\Saper.exe
