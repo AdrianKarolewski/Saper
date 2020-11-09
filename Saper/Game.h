@@ -23,24 +23,22 @@
 class Game
 {
 public:
-    Game(sf::RenderWindow& Saper);
+    Game(sf::RenderWindow& Saper,sf::Font & font);
     ~Game();
     void Center_txt(Map* m1, const unsigned int& secounds);
     bool Menu_make(sf::Event& event, sf::RenderWindow& Saper);
     bool Game_make(sf::Event& event, sf::RenderWindow& Saper);
 private:
-	sf::Font font;
-    Texts* lv_ea = nullptr, * lv_me = nullptr, * lv_ha = nullptr, * reset = nullptr, * end_in_menu = nullptr,
-        * end_in_game = nullptr, * back_to_menu = nullptr, *clock = nullptr;
-    Texts* lifebuoy = nullptr, *n_o_flags = nullptr;
-    sf::RectangleShape *win = nullptr, *lost = nullptr;
-    unsigned int window_w, window_h ;
-    unsigned int secounds = 0;
-    unsigned int taken_time = 0;
-    bool show_one_bomb = 1;
-    unsigned int* Game_m_w = new unsigned int, * Game_m_h = new unsigned int, * Mines_on_map = new unsigned int;
-    Map* game_map = nullptr;
+    
+    Texts* lv_ea{ nullptr }, * lv_me{ nullptr }, * lv_ha{ nullptr }, * reset{ nullptr }, 
+        * end_in_menu{ nullptr }, * end_in_game{ nullptr }, * back_to_menu{ nullptr }, *clock{ nullptr };
+    Texts* lifebuoy{ nullptr }, *n_o_flags{ nullptr };
+    sf::RectangleShape *win{ nullptr }, *lost{ nullptr };
+    unsigned int secounds{ 0 };
+    unsigned int taken_time{ 0 };
+    bool show_one_bomb{ 1 };
+    unsigned int Game_m_w{ 0 }, Game_m_h{ 0 }, Mines_on_map{ 0 };
+    Map* game_map{ nullptr };
     clock_t start = 0;
-
 };
 

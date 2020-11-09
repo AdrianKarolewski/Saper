@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Box.h"
-
+#define BOX_S 0.015625
 class Map
 {
 public:
@@ -20,22 +20,22 @@ public:
 	void Show_boombs();
 	bool Show_one_bomb();
 	void Click_handle(const unsigned int& x, const unsigned int& y, sf::RenderWindow& Saper, sf::Event event);
-	unsigned int Get_h_m_b_flagged() const;
-	unsigned int Get_h_m_flagged() const;
-	const unsigned int Get_h_m_mines() const;
-	bool Get_lost_b() const;
-	bool Get_win_b() const;
+	const unsigned int & Get_h_m_b_flagged() const;
+	const unsigned int & Get_h_m_flagged() const;
+	const unsigned int & Get_h_m_mines() const;
+	const bool & Get_lost_b() const;
+	const bool & Get_win_b() const;
 	void Set_win_b(bool&& b);
 	void Set_lost_b(bool&& b);
 	bool Show_box(const unsigned int& x, const unsigned int& y);
 	bool Click_on_map(const unsigned int& x, const unsigned int& y);
 		
 private:
-	bool Is_win();
-	unsigned int m_how_much_bombs_flagged = 0;
-	unsigned int m_how_much_put_flags = 0;
-	const unsigned int m_map_w, m_map_h, m_c_mines;
-	bool m_win_b = 0, m_lost_b = 0;
-	Box*** t_boxes = nullptr;	
+	const bool & Is_win();
+	unsigned int m_how_much_bombs_flagged{ 0 };
+	unsigned int m_how_much_put_flags{ 0 };
+	const unsigned int m_map_w{ 0 }, m_map_h{ 0 }, m_c_mines{ 0 };
+	bool m_win_b{ 0 }, m_lost_b{ 0 };
+	Box*** t_boxes{ nullptr };
 };
 

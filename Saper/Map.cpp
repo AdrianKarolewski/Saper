@@ -8,31 +8,28 @@ int random(unsigned int max)
 	return digit;
 }
 Map::Map(unsigned int &m_w, unsigned int &m_h, unsigned int &c_mi, sf::RenderWindow& Saper)
-	: m_map_w(m_w),m_map_h(m_h),m_c_mines(c_mi)
+	: m_map_w(m_w),m_map_h(m_h),m_c_mines(c_mi),
+	t_boxes(new Box **[m_map_h])
 {
-	// rezerwacja miejsca w pamiêci na boxy
-	t_boxes = new Box ** [m_map_h];
-	
 	for (unsigned int i = 0; i < m_map_h; i++)
 	{
 		t_boxes[i] = new Box*[m_map_w];
 	}
-	int window_w = Saper.getSize().x, window_h = Saper.getSize().y;
 	for (int i = 0; i < m_map_h; i++)
 	{
 		for (int j = 0; j < m_map_w; j++)
 		{
-			t_boxes[i][j] = new Box({static_cast<float>(0.015625 * window_w),
-				static_cast<float>(0.015625 * window_w) });
+			t_boxes[i][j] = new Box({static_cast<float>(BOX_S * Saper.getSize().x),
+				static_cast<float>(BOX_S * Saper.getSize().x) });
 		}
 	}
 	//ustawienie boxów
 	
-	int x_push = t_boxes[0][0]->Get_box_size().x;
-	int y_push = t_boxes[0][0]->Get_box_size().y;
+	unsigned int x_push = static_cast<unsigned int>(t_boxes[0][0]->Get_box_size().x);
+	unsigned int y_push = static_cast<unsigned int>(t_boxes[0][0]->Get_box_size().y);
 
-	sf::Vector2f vector_position{ static_cast<float>((window_w / 2) - (x_push * m_map_w) / 2), 
-		static_cast<float>((window_h / 2) - (y_push * m_map_h) / 2) };
+	sf::Vector2f vector_position{ static_cast<float>((Saper.getSize().x / 2) - (x_push * m_map_w) / 2),
+		static_cast<float>((Saper.getSize().y / 2) - (y_push * m_map_h) / 2) };
 
 	for (unsigned int i = 0; i < m_map_h; i++)
 	{
@@ -41,7 +38,7 @@ Map::Map(unsigned int &m_w, unsigned int &m_h, unsigned int &c_mi, sf::RenderWin
 			t_boxes[i][j]->Set_position(vector_position);
 			vector_position.x += x_push;
 		}
-		vector_position.x = static_cast<float>((window_w / 2) - (x_push * m_map_w) / 2);
+		vector_position.x = static_cast<float>((Saper.getSize().x / 2) - (x_push * m_map_w) / 2);
 		vector_position.y += static_cast<float>(y_push);
 	}
 	///////////////////////
@@ -81,7 +78,6 @@ Map::~Map()
 	{
 		for (unsigned int i = 0; i < m_map_h; i++)
 		{
-
 			for (unsigned int j = 0; j < m_map_w; j++)
 			{
 				delete t_boxes[i][j];
@@ -95,199 +91,197 @@ Map::~Map()
 	{
 		delete[] texturs;
 		texturs = nullptr;
-	}
-	
-	
+	}	
 }
 Map* Map::Update_val_box(Map* map1, const unsigned int &x, const unsigned int &y)
 {
 	if ((x == 0) && (y == 0))
 	{
-		if (!map1->t_boxes[y + 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x]->Up_value();
+			(*map1->t_boxes[y + 1][x])++;
 		}
 
-		if (!map1->t_boxes[y][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x + 1]->Up_value();
+			(*map1->t_boxes[y][x + 1])++;
 		}
 
-		if (!map1->t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x + 1]->Up_value();
+			(*map1->t_boxes[y + 1][x + 1])++;
 		}
 	}
 	else if ((x == 0) && (y == map1->m_map_h - 1))
 	{
-		if (!map1->t_boxes[y - 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x]->Up_value();
+			(*map1->t_boxes[y - 1][x])++;
 		}
-		if (!map1->t_boxes[y][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x + 1]->Up_value();
+			(*map1->t_boxes[y][x + 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x + 1]->Up_value();
+			(*map1->t_boxes[y - 1][x + 1])++;
 		}
 	}
 	else if ((x == map1->m_map_w - 1) && (y == 0))
 	{
-		if (!map1->t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x - 1]->Up_value();
+			(*map1->t_boxes[y + 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x - 1]->Up_value();
+			(*map1->t_boxes[y][x - 1])++;
 		}
-		if (!map1->t_boxes[y + 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x]->Up_value();
+			(*map1->t_boxes[y + 1][x])++;
 		}
 	}
 	else if ((x == map1->m_map_w - 1) && (y == map1->m_map_h - 1))
 	{
-		if (!map1->t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x - 1]->Up_value();
+			(*map1->t_boxes[y - 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x - 1]->Up_value();
+			(*map1->t_boxes[y][x - 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x]->Up_value();
+			(*map1->t_boxes[y - 1][x])++;
 		}
 	}
 	else if (x == 0)
 	{
-		if (!map1->t_boxes[y + 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x]->Up_value();
+			(*map1->t_boxes[y + 1][x])++;
 		}
-		if (!map1->t_boxes[y - 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x]->Up_value();
+			(*map1->t_boxes[y - 1][x])++;
 		}
-		if (!map1->t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x + 1]->Up_value();
+			(*map1->t_boxes[y + 1][x + 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x + 1]->Up_value();
+			(*map1->t_boxes[y - 1][x + 1])++;
 		}
-		if (!map1->t_boxes[y][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x + 1]->Up_value();
+			(*map1->t_boxes[y][x + 1])++;
 		}
 	}
 	else if (x == map1->m_map_w - 1)
 	{
-		if (!map1->t_boxes[y + 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x]->Up_value();
+			(*map1->t_boxes[y + 1][x])++;
 		}
-		if (!map1->t_boxes[y - 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x]->Up_value();
+			(*map1->t_boxes[y - 1][x])++;
 		}
-		if (!map1->t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x - 1]->Up_value();
+			(*map1->t_boxes[y + 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x - 1]->Up_value();
+			(*map1->t_boxes[y - 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x - 1]->Up_value();
+			(*map1->t_boxes[y][x - 1])++;
 		}
 	}
 	else if (y == 0)
 	{
-		if (!map1->t_boxes[y][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x + 1]->Up_value();
+			(*map1->t_boxes[y][x + 1])++;
 		}
-		if (!map1->t_boxes[y][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x - 1]->Up_value() ;
+			(*map1->t_boxes[y][x - 1])++;
 		}
-		if (!map1->t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x + 1]->Up_value();
+			(*map1->t_boxes[y + 1][x + 1])++;
 		}
-		if (!map1->t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x - 1]->Up_value();
+			(*map1->t_boxes[y + 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y + 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x]->Up_value();
+			(*map1->t_boxes[y + 1][x])++;
 		}
 	}
 	else if (y == map1->m_map_h - 1)
 	{
-		if (!map1->t_boxes[y][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x + 1]->Up_value();
+			(*map1->t_boxes[y][x + 1])++;
 		}
-		if (!map1->t_boxes[y][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x - 1]->Up_value();
+			(*map1->t_boxes[y][x - 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x + 1]->Up_value();
+			(*map1->t_boxes[y - 1][x + 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x - 1]->Up_value();
+			(*map1->t_boxes[y - 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x]->Up_value();
+			(*map1->t_boxes[y - 1][x])++;
 		}
 	}
 	else
 	{
-		if (!map1->t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x - 1]->Up_value();
+			(*map1->t_boxes[y - 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x - 1]->Up_value();
+			(*map1->t_boxes[y][x - 1])++;
 		}
-		if (!map1->t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x - 1]->Up_value();
+			(*map1->t_boxes[y + 1][x - 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x + 1]->Up_value();
+			(*map1->t_boxes[y - 1][x + 1])++;
 		}
-		if (!map1->t_boxes[y][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y][x + 1]->Up_value();
+			(*map1->t_boxes[y][x + 1])++;
 		}
-		if (!map1->t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x + 1]->Up_value();
+			(*map1->t_boxes[y + 1][x + 1])++;
 		}
-		if (!map1->t_boxes[y - 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y - 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y - 1][x]->Up_value();
+			(*map1->t_boxes[y - 1][x])++;
 		}
-		if (!map1->t_boxes[y + 1][x]->Is_mine_b())
+		if (!map1->t_boxes[y + 1][x]->Get_is_mine_b())
 		{
-			map1->t_boxes[y + 1][x]->Up_value();
+			(*map1->t_boxes[y + 1][x])++;
 		}
 	}
 	return map1;
@@ -299,7 +293,7 @@ Map* Map::Append_mines_add_val(Map * map1)
 	{
 		i = random(map1->m_map_h);
 		j = random(map1->m_map_w);
-		while (map1->t_boxes[i][j]->Is_mine_b())
+		while (map1->t_boxes[i][j]->Get_is_mine_b())
 		{
 			i = random(map1->m_map_h);
 			j = random(map1->m_map_w);
@@ -327,7 +321,7 @@ void Map::Flagged_box(const unsigned int& x, const unsigned int& y)
 	t_boxes[y][x]->Set_block(1);
 	t_boxes[y][x]->Set_is_flagged(1);
 	m_how_much_put_flags++;
-	if (t_boxes[y][x]->Is_mine_b()) { m_how_much_bombs_flagged++; }
+	if (t_boxes[y][x]->Get_is_mine_b()) { m_how_much_bombs_flagged++; }
 }
 void Map::Un_flagged_box(const unsigned int& x, const unsigned int& y)
 {
@@ -335,195 +329,195 @@ void Map::Un_flagged_box(const unsigned int& x, const unsigned int& y)
 	t_boxes[y][x]->Set_block(0);
 	t_boxes[y][x]->Set_is_flagged(0);
 	m_how_much_put_flags--;
-	if (t_boxes[y][x]->Is_mine_b()) { m_how_much_bombs_flagged--; }
+	if (t_boxes[y][x]->Get_is_mine_b()) { m_how_much_bombs_flagged--; }
 }
 void Map::Add_to_show(const unsigned int& y, const unsigned int& x)
 {
 	if ((x == 0) && (y == 0))
 	{
-		if (!t_boxes[y + 1][x]->Is_mine_b())
+		if (!t_boxes[y + 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x]->Set_show_it(1);
 		}
 
-		if (!t_boxes[y][x + 1]->Is_mine_b())
+		if (!t_boxes[y][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x + 1]->Set_show_it(1);
 		}
 
-		if (!t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x + 1]->Set_show_it(1);
 		}
 	}
 	else if ((x == 0) && (y == m_map_h - 1))
 	{
-		if (!t_boxes[y - 1][x]->Is_mine_b())
+		if (!t_boxes[y - 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x + 1]->Is_mine_b())
+		if (!t_boxes[y][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x + 1]->Set_show_it(1);
 		}
 	}
 	else if ((x == m_map_w - 1) && (y == 0))
 	{
-		if (!t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x - 1]->Is_mine_b())
+		if (!t_boxes[y][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x]->Is_mine_b())
+		if (!t_boxes[y + 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x]->Set_show_it(1);
 		}
 	}
 	else if ((x == m_map_w - 1) && (y == m_map_h - 1))
 	{
-		if (!t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x - 1]->Is_mine_b())
+		if (!t_boxes[y][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x]->Is_mine_b())
+		if (!t_boxes[y - 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x]->Set_show_it(1);
 		}
 	}
 	else if (x == 0)
 	{
-		if (!t_boxes[y + 1][x]->Is_mine_b())
+		if (!t_boxes[y + 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x]->Is_mine_b())
+		if (!t_boxes[y - 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x + 1]->Is_mine_b())
+		if (!t_boxes[y][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x + 1]->Set_show_it(1);
 		}
 	}
 	else if (x == m_map_w - 1)
 	{
-		if (!t_boxes[y + 1][x]->Is_mine_b())
+		if (!t_boxes[y + 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x]->Is_mine_b())
+		if (!t_boxes[y - 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x - 1]->Is_mine_b())
+		if (!t_boxes[y][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x - 1]->Set_show_it(1);
 		}
 	}
 	else if (y == 0)
 	{
-		if (!t_boxes[y][x + 1]->Is_mine_b())
+		if (!t_boxes[y][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x - 1]->Is_mine_b())
+		if (!t_boxes[y][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x]->Is_mine_b())
+		if (!t_boxes[y + 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x]->Set_show_it(1);
 		}
 	}
 	else if (y == m_map_h - 1)
 	{
-		if (!t_boxes[y][x + 1]->Is_mine_b())
+		if (!t_boxes[y][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x - 1]->Is_mine_b())
+		if (!t_boxes[y][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x]->Is_mine_b())
+		if (!t_boxes[y - 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x]->Set_show_it(1);
 		}
 	}
 	else
 	{
-		if (!t_boxes[y - 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x - 1]->Is_mine_b())
+		if (!t_boxes[y][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x - 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x - 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x - 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y - 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y][x + 1]->Is_mine_b())
+		if (!t_boxes[y][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x + 1]->Is_mine_b())
+		if (!t_boxes[y + 1][x + 1]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x + 1]->Set_show_it(1);
 		}
-		if (!t_boxes[y - 1][x]->Is_mine_b())
+		if (!t_boxes[y - 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y - 1][x]->Set_show_it(1);
 		}
-		if (!t_boxes[y + 1][x]->Is_mine_b())
+		if (!t_boxes[y + 1][x]->Get_is_mine_b())
 		{
 			t_boxes[y + 1][x]->Set_show_it(1);
 		}
@@ -536,7 +530,7 @@ void Map::Show_boombs()
 		for (int j = 0; j < m_map_w; j++)
 		{
 			t_boxes[i][j]->Set_block(1);
-			if ((t_boxes[i][j]->Is_mine_b()) && !(t_boxes[i][j]->Is_flagged_b()))
+			if ((t_boxes[i][j]->Get_is_mine_b()) && !(t_boxes[i][j]->Get_is_flagged_b()))
 			{
 				t_boxes[i][j]->Set_tex(texturs[9]);
 			}
@@ -549,7 +543,7 @@ bool Map::Show_one_bomb()
 	{
 		for (int j = random(m_map_w) - 1; j < m_map_w; j++)
 		{
-			if ((t_boxes[i][j]->Is_mine_b()) && (!t_boxes[i][j]->Is_flagged_b()))
+			if ((t_boxes[i][j]->Get_is_mine_b()) && (!t_boxes[i][j]->Get_is_flagged_b()))
 			{
 				t_boxes[i][j]->Set_block(1);
 				t_boxes[i][j]->Set_show_it(0);
@@ -572,7 +566,7 @@ void Map::Click_handle(const unsigned int& x, const unsigned int& y, sf::RenderW
 	//oflagowanie boxa
 	if (event.mouseButton.button == sf::Mouse::Right)
 	{
-		if (!t_boxes[*click_y][*click_x]->Is_block_b())
+		if (!t_boxes[*click_y][*click_x]->Get_is_block_b())
 		{
 			Flagged_box(*click_x, *click_y);
 		}
@@ -583,7 +577,7 @@ void Map::Click_handle(const unsigned int& x, const unsigned int& y, sf::RenderW
 	}
 	if (event.mouseButton.button == sf::Mouse::Middle)
 	{
-		if (t_boxes[*click_y][*click_x]->Is_flagged_b())
+		if (t_boxes[*click_y][*click_x]->Get_is_flagged_b())
 		{
 			Un_flagged_box(*click_x, *click_y);
 		}
@@ -591,8 +585,8 @@ void Map::Click_handle(const unsigned int& x, const unsigned int& y, sf::RenderW
 	// otwieranie boxa
 	if (event.mouseButton.button == sf::Mouse::Left)
 	{
-		if (!(t_boxes[*click_y][*click_x]->Is_block_b())
-			&& (!t_boxes[*click_y][*click_x]->Is_flagged_b()))
+		if (!(t_boxes[*click_y][*click_x]->Get_is_block_b())
+			&& (!t_boxes[*click_y][*click_x]->Get_is_flagged_b()))
 		{
 			// przegrana
 			if (Show_box(*click_x, *click_y))
@@ -606,7 +600,7 @@ void Map::Click_handle(const unsigned int& x, const unsigned int& y, sf::RenderW
 	{
 		for (int j = 0; j < m_map_w; j++)
 		{
-			if (t_boxes[i][j]->Is_show_it() == 1)
+			if (t_boxes[i][j]->Get_is_show_it() == 1)
 			{
 				Show_box(j, i);
 			}
@@ -614,7 +608,7 @@ void Map::Click_handle(const unsigned int& x, const unsigned int& y, sf::RenderW
 	}
 	delete click_x, click_y;
 }
-bool Map::Is_win()
+const bool & Map::Is_win()
 {
 	if (m_how_much_bombs_flagged == m_how_much_put_flags)
 	{
@@ -660,7 +654,7 @@ bool Map::Show_box(const unsigned int &x, const unsigned int &y)
 		t_boxes[y][x]->Set_tex(texturs[9]);
 		break;
 	}
-	return t_boxes[y][x]->Is_mine_b();
+	return t_boxes[y][x]->Get_is_mine_b();
 }
 bool Map::Click_on_map(const unsigned int& x, const unsigned int& y)
 {
@@ -673,23 +667,23 @@ bool Map::Click_on_map(const unsigned int& x, const unsigned int& y)
 	}
 	return 0;
 }
-unsigned int Map::Get_h_m_b_flagged() const
+const unsigned int & Map::Get_h_m_b_flagged() const
 {
 	return m_how_much_bombs_flagged;
 }
-unsigned int Map::Get_h_m_flagged() const
+const unsigned int & Map::Get_h_m_flagged() const
 {
 	return m_how_much_put_flags;
 }
-const unsigned int Map::Get_h_m_mines() const
+const unsigned int & Map::Get_h_m_mines() const
 {
 	return m_c_mines;
 }
-bool Map::Get_lost_b() const
+const bool & Map::Get_lost_b() const
 {
 	return m_lost_b;
 }
-bool Map::Get_win_b() const
+const bool & Map::Get_win_b() const
 {
 	return m_win_b;
 }
