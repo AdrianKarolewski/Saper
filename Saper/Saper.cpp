@@ -9,9 +9,10 @@
 int main()
 {
     ShowWindow(GetConsoleWindow(),SW_HIDE);
-    //tworzenie okna
+    sf::Font font;
+    if (!font.loadFromFile("Arial.ttf")) { std::cout << "Error font add"; }
     sf::RenderWindow Saper(sf::VideoMode(0,0), "Saper",sf::Style::Fullscreen);
-    Game* Game_Saper = new Game(Saper);
+    Game* Game_Saper = new Game(Saper ,font);
     sf::Event event;
     
     bool menu = 0;
@@ -25,6 +26,10 @@ int main()
         {
             if (event.type == sf::Event::Closed)
             {
+                if (Game_Saper != nullptr)
+                {
+                    delete Game_Saper;
+                }
                 Saper.close();
             }     
         }
