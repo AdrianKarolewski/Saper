@@ -14,7 +14,7 @@ int main()
     sf::RenderWindow Saper(sf::VideoMode(0,0), "Saper",sf::Style::Fullscreen);
     Game* Game_Saper = new Game(Saper ,font);
     sf::Event event;
-    
+    Saper.setFramerateLimit(140);
     bool menu = 0;
     bool game = 0;
      
