@@ -3,13 +3,7 @@
 #include "Box.h"
 #include "Texts.h"
 #include <iostream>
-#define MEMU_BOX_W_S 0.156
-#define MENU_BOX_H_S 0.092
-#define CHAR_SIZE_2 0.037
-#define MENU_BOX_W_S2 0.104
-#define MENU_BOX_H_S2 0.074
-#define MENU_BOX_W_P 0.89
-#define MENU_BOX_W_P2 0.104
+
 Game::Game(sf::RenderWindow &Saper,sf::Font & font) :
 
 lv_ea(new Texts(font, "Lv_easy", static_cast<int>(CHAR_SIZE_1 * Saper.getSize().y),

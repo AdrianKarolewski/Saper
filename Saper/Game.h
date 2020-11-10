@@ -6,19 +6,31 @@
 #define TIME_FOR_GAME 1000
 
 #define CHAR_SIZE_1 0.045
+#define CHAR_SIZE_2 0.037
+
 #define TIME_FOR_BOMB 20
 
 #define GAME_M_W_1 10
 #define GAME_M_H_1 16
-#define MINES_ON_M_1 30
+#define MINES_ON_M_1 27
 
 #define GAME_M_W_2 20
 #define GAME_M_H_2 30
-#define MINES_ON_M_2 90
+#define MINES_ON_M_2 79
 
 #define GAME_M_W_3 40
 #define GAME_M_H_3 30
-#define MINES_ON_M_3 200
+#define MINES_ON_M_3 180
+
+#define MEMU_BOX_W_S 0.156
+#define MENU_BOX_H_S 0.092
+
+
+#define MENU_BOX_W_S2 0.104
+#define MENU_BOX_H_S2 0.074
+
+#define MENU_BOX_W_P 0.89
+#define MENU_BOX_W_P2 0.104
 
 class Game
 {
