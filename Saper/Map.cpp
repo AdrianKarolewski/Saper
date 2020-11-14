@@ -1,6 +1,4 @@
 #include "Map.h"
-#include "Box.h"
-#include <iostream>
 
 int random(unsigned int max)
 {

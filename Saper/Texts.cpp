@@ -1,8 +1,4 @@
 #include "Texts.h"
-#define BOX_FILL_COLOR {160,160,160}
-#define BOX_OUTLINE_COLOR {0,0,255}
-#define FONT_COLOR { 0, 0, 255 }
-#define BOX_FILL_COLOR_FOCUS {10,10,10}
 
 Texts::Texts(sf::Font &font, const char* st_come,const int &size_s_c, 
 	sf::Vector2f && vector_box_size, sf::Vector2f && vector_box_position)

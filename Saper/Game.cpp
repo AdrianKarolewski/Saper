@@ -1,8 +1,5 @@
 #include "Game.h"
-#include "Map.h"
-#include "Box.h"
-#include "Texts.h"
-#include <iostream>
+
 
 Game::Game(sf::RenderWindow &Saper,sf::Font & font) :
 

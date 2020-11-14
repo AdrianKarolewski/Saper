@@ -1,6 +1,7 @@
 #pragma once
-
 #include "Box.h"
+#include <iostream>
+
 #define BOX_S 0.015625
 class Map
 {

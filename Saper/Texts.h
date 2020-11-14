@@ -1,6 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#define BOX_FILL_COLOR {160,160,160}
+#define BOX_OUTLINE_COLOR {0,0,255}
+#define FONT_COLOR { 0, 0, 255 }
+#define BOX_FILL_COLOR_FOCUS {10,10,10}
 
 class Texts : public sf::Drawable
 {

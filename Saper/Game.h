@@ -2,7 +2,9 @@
 #include "Map.h"
 #include "Texts.h"
 
+#include <iostream>
 #include <time.h>
+
 #define TIME_FOR_GAME 1000
 
 #define CHAR_SIZE_1 0.045
