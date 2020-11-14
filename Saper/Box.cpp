@@ -1,4 +1,5 @@
 #include "Box.h"
+
 Box::Box() : box_view(new sf::RectangleShape({ 0,0 }))
 {
 	box_view->setFillColor(sf::Color(160, 160, 160));

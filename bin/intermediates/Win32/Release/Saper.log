@@ -1,4 +1,32 @@
-﻿  Saper.cpp
+﻿  Box.cpp
+  Game.cpp
+  Map.cpp
+D:\Projects\Saper\Saper\Map.cpp(18,20): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(20,21): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(528,20): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(530,21): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(542,38): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(544,39): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(564,117): warning C4244: '=': conversion from 'T' to '__int64', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(565,117): warning C4244: '=': conversion from 'T' to '__int64', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Projects\Saper\Saper\Map.cpp(571,26): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(571,16): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(582,29): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(582,19): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(592,27): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(592,17): warning C4244: 'argument': conversion from '__int64' to 'const unsigned int', possible loss of data
+D:\Projects\Saper\Saper\Map.cpp(599,20): warning C4018: '<': signed/unsigned mismatch
+D:\Projects\Saper\Saper\Map.cpp(601,21): warning C4018: '<': signed/unsigned mismatch
+  Saper.cpp
+  Texts.cpp
   Generating code
   0 of 202 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
